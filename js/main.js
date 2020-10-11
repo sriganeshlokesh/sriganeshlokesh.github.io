@@ -21,21 +21,17 @@ function linkAction(){
 navLink.forEach(n => n.addEventListener('click', linkAction))
 
 // Scroll Section - Active Link
-const sections = document.querySelectorAll('section[id]')
-window.addEventListener('scroll', scrollActive)
+const links = document.querySelectorAll('.nav__link')
+const sections = document.querySelectorAll('section');
+function changeLinkState() {
+    let index = sections.length;
+    while(--index && window.scrollY < sections[index].offsetTop) {
+    }
+    
+    links.forEach((link) => {
+        link.classList.remove('active')});
+    links[index].classList.add('active');
+  }
 
-function scrollActive(){
-    const scrollY = window.pageYOffset
-    sections.forEach(current=>{
-        const sectionHeight = current.offsetHeight
-        const sectionTop = current.offsetTop - 50
-        sectionId = current.getAttribute('id')
-
-        if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
-            document.querySelectorAll('.nav__menu a[href*=' + sectionId + ']').classList.add('active')
-        }
-        else{
-            document.querySelectorAll('.nav__menu a[href*=' + sectionId + ']').classList.remove('active')
-        }
-    })
-}
+  changeLinkState();
+  window.addEventListener('scroll', changeLinkState);
